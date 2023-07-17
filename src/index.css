@@ -52,3 +52,21 @@ body {
 .cursor {
   color: white;
 }
+
+.sad-div {
+  /* background-color: rgb(255, 0, 0); */
+  display: flex;
+  justify-content: center;
+}
+.texture-selector{
+  transform: scale(5);
+}
+
+.texture-selector img.active{
+  border: 1px solid rgb(255, 62, 62);
+}
+
+.menu{ 
+  top: 10px;
+  left: 10px;
+}

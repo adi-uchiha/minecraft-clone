@@ -4,8 +4,8 @@ import * as THREE from 'three';
 
 extend({ ShaderMaterial: THREE.ShaderMaterial });
 
-const Sky = () => {
-  const { size, gl } = useThree();
+const MySky = () => {
+  const { size } = useThree();
   const materialRef = useRef();
 
   useEffect(() => {
@@ -19,51 +19,27 @@ const Sky = () => {
   });
 
   return (
-    <mesh>
-      <planeBufferGeometry args={[size.width, size.height]} />
-      <shaderMaterial
-        ref={materialRef}
-        args={[
-          {
-            uniforms: {
-              iTime: { value: 0.0 },
-              iResolution: { value: new THREE.Vector2() },
-            },
-            vertexShader: `
-              varying vec2 vUv;
-              void main() {
-                vUv = uv;
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-              }
-            `,
-            fragmentShader: `
+    <group position={[0, 10, -20]}> {/* Set the fixed position of the sky screen */}
+      <mesh>
+        <planeBufferGeometry args={[size.width, size.height]} />
+        <shaderMaterial
+          ref={materialRef}
+          args={[
+            {
+              uniforms: {
+                iTime: { value: 0.0 },
+                iResolution: { value: new THREE.Vector2() },
+              },
+              vertexShader: `
+                varying vec2 vUv;
+                void main() {
+                  vUv = uv;
+                  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+              `,
+                fragmentShader: ` 
               uniform float iTime;
               uniform vec2 iResolution;
-
-              // Auroras by nimitz 2017 (twitter: @stormoid)
-              // License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
-              // Contact the author for other licensing options
-
-              /*
-
-                There are two main hurdles I encountered rendering this effect. 
-                First, the nature of the texture that needs to be generated to get a believable effect
-                needs to be very specific, with large scale band-like structures, small scale non-smooth variations
-                to create the trail-like effect, a method for animating said texture smoothly and finally doing all
-                of this cheaply enough to be able to evaluate it several times per fragment/pixel.
-
-                The second obstacle is the need to render a large volume while keeping the computational cost low.
-                Since the effect requires the trails to extend way up in the atmosphere to look good, this means
-                that the evaluated volume cannot be as constrained as with cloud effects. My solution was to make
-                the sample stride increase polynomially, which works very well as long as the trails are lower opacity than
-                the rest of the effect. Which is always the case for auroras.
-
-                After that, there were some issues with getting the correct emission curves and removing banding at lowered
-                sample densities, this was fixed by a combination of sample number influenced dithering and slight sample blending.
-
-                N.B. the base setup is from an old shader and ideally the effect would take an arbitrary ray origin and
-                direction. But this was not required for this demo and would be trivial to fix.
-              */
 
               #define time iTime
 
@@ -201,13 +177,14 @@ const Sky = () => {
                 }
 
                 gl_FragColor = vec4(col, 1.0);
-              }
-            `,
-          },
-        ]}
-      />
-    </mesh>
+              }  
+              `,
+            },
+          ]}
+        />
+      </mesh>
+    </group>
   );
 };
 
-export default Sky;
+export default MySky;
