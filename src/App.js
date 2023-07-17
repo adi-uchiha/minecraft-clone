@@ -9,8 +9,13 @@ import { TextureSelector } from './components/TextureSelector';
 import MySky from './components/Sky';
 import { MobileScreen } from './components/MobileScreen';
 import { Menu } from './components/Menu';
+import { SkyToggle } from './components/SkyToggle';
+import { useState } from 'react';
 
 function App() {
+
+  const [aurora, setAurora] = useState(true)
+
   if(window.screen.width < 850) {
     return <>
       <MobileScreen />
@@ -22,7 +27,7 @@ function App() {
         <Sky sunPosition={[100, 100, 100]}/>
         <ambientLight intensity={0.5} />
         <FPV />
-        {/* <MySky /> */}
+        {aurora ? <MySky /> : null}
 
         <Physics>
           <Player />
@@ -33,6 +38,12 @@ function App() {
       <div className='absolute centered cursor'>+</div>
       <TextureSelector />
       <Menu /> 
+      <SkyToggle />
+
+      <div className="absolute sky-toggle-div">
+        <input onClick={()=>setAurora(!aurora)} type="checkbox" id="aurora" name="aurora" defaultChecked/>
+        <label className="aurora-label" for="aurora">Aurora</label>
+    </div>
     </>
   );
 }

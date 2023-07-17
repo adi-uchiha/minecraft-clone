@@ -70,3 +70,11 @@ body {
   top: 10px;
   left: 10px;
 }
+
+.sky-toggle-div{
+  top: 10px;
+  left: 100px;
+}
+.aurora-label{
+  font-size: medium;
+}
