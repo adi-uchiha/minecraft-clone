@@ -11,10 +11,12 @@ import { MobileScreen } from './components/MobileScreen';
 import { Menu } from './components/Menu';
 import { SkyToggle } from './components/SkyToggle';
 import { useState } from 'react';
+import Instructions from './components/Instructions';
 
 function App() {
 
-  const [aurora, setAurora] = useState(true)
+  const [aurora, setAurora] = useState(false)
+  const [instructions, setInstructions] = useState(true)
 
   if(window.screen.width < 850) {
     return <>
@@ -28,7 +30,7 @@ function App() {
         <ambientLight intensity={0.5} />
         <FPV />
         {aurora ? <MySky /> : null}
-
+        
         <Physics>
           <Player />
           <Cubes />
@@ -39,6 +41,13 @@ function App() {
       <TextureSelector />
       <Menu /> 
       <SkyToggle />
+
+      {instructions ? <Instructions /> : null}
+
+      <div className='absolute instruction-toggle-div'>
+        <input onClick={()=>setInstructions(!instructions)} type='checkbox' name='instruction'/>
+        <label for='instruction' className='instruction-label'>Instructions</label>
+      </div>
 
       <div className="absolute sky-toggle-div">
         <input onClick={()=>setAurora(!aurora)} type="checkbox" id="aurora" name="aurora" defaultChecked/>

@@ -78,3 +78,10 @@ body {
 .aurora-label{
   font-size: medium;
 }
+.instruction-toggle-div{
+  top: 10px;
+  left: 190px;
+}
+.instruction-label{
+  font-size: medium;
+}
