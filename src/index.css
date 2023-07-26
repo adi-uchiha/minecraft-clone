@@ -85,3 +85,10 @@ body {
 .instruction-label{
   font-size: medium;
 }
+.instruction-screen{
+  background-color: rgba(228, 227, 227, 0.734);
+  font-size: 25px;
+  border-radius: 20px;
+  border: solid 1px;
+  padding: 10px;
+}

@@ -42,10 +42,10 @@ function App() {
       <Menu /> 
       <SkyToggle />
 
-      {instructions ? <Instructions /> : null}
+      {instructions ? <Instructions instructionsToggle={setInstructions}/> : null}
 
       <div className='absolute instruction-toggle-div'>
-        <input onClick={()=>setInstructions(!instructions)} type='checkbox' name='instruction'/>
+        <input onClick={()=>setInstructions(!instructions)} type='checkbox' name='instruction' />
         <label for='instruction' className='instruction-label'>Instructions</label>
       </div>
 
